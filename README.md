@@ -366,7 +366,7 @@ app.use(logger)
 ```
 
  - so what we're gonna do is we're gonna log the URL that's hit and the date (we have access to part of the URL with request object) 
-`req.protocol` is gonna give us (HTTP), then we're gonna do `://`  and then we wanna get the Host which is also available in the request object `req.get('host')` then we want what's called the original URL which is the page `req.originalUrl`.
+`req.protocol` is gonna give us (HTTP), then we're gonna type in `://`  and then we wanna get the Host which is also available in the request object `req.get('host')` then we want what's called the original URL which is the page `req.originalUrl`.
 
 if we go to postman and send a request and look in the console. We'd get the whole URL that's hit. `http://localhost:5000/api/members`
 
@@ -389,9 +389,9 @@ console.log(`${req.protocol}://${req.get('host')}${req.originalUrl} : ${moment()
 
 <br>
 
-### 30:15 getting single member fromthe API
+## getting single member from the API
 
-#### refer
+
 ```javascript
 
 app.get('/api/members/:id', (req, res) => {
@@ -408,7 +408,7 @@ so we're gonna say `app.get(/api/members/:id)` don't forget the colon
  `res.send(req.params.id)`
 
 
-- this will give us only the number of if we'll input.
+- this will give us only the number of iD we'll input.
 
 - but we want the specific member of the id we input. 
 so we need to use `res.json()`
@@ -447,7 +447,7 @@ res.json(members.filter(function (member) {
 - now if we tried to get an id member that's not in there.
 `http://localhost:5000/api/members/5`
 it'll return nothing.
-now what we wanna do is give it a message saying that there's no member with that id. ther's a lot of different ways we can do this but we're gonna use the sum method. and what it does is, It'll run a condition and give us a true or false based on that condition.
+now what we wanna do is give it a message saying that there's no member with that id. ther's a lot of different ways we can do this but we're gonna use the some method. and what it does is, It'll run a condition and give us a true or false based on that condition.
 
 `const found = members.some((member) => member.id === parseInt(req.params.id))`
 
@@ -477,7 +477,7 @@ res.json``({ msg: `no member with the id of ${req.params.id}` })`` // doing just
 
 
 
-### 37:25 express route
+### express route
 
 ##### Note: having all the routes in our index file it's getting kind of cramped up so we can put all of our similar routes into a single file so we will create a folder called routes. inside of it we're create a folder called api, because not all of our routes they might not be api's, when we're serving json we may have routes where we're serving server side templates. we'll create a foile in it called members.js. so we'll cut our routes, all members and single member  and put it in members.
 
@@ -508,7 +508,7 @@ and since we have the routes in our main file, we don't need it in the member fi
 
 <br>
 
-### 41:25 create a member:
+### create a member:
 
 ##### whenever we create something on the server or we're adding to a database, we make a POST request in most cases. 
 so to handle a post request we're gonna say `router.post` instead of `router.get` 
@@ -608,7 +608,7 @@ and return the whole array including the one that we're pushing. (we could also 
 
  <br>
 
- ### 49:02 Update a member
+ ### Update a member
 
 
  ##### Note: when we're we're dealing with a real API obviuosly we're gonna have a database, we're not just gonna have a file with the data. what would happen is you'll install a package like Mongoose which is an object relational or object data mapper for mongoDB, and we would connect to our database and instead of pushing on to files like this.we'd do something like `members.save(newMember)` and some kinda syntax like that. 
@@ -647,7 +647,7 @@ router.put('/:id', (req, res) => {
 
 <br>
 
-### 55:56 delete member:
+### delete member:
 
 
 ```javascript
