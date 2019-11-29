@@ -22,7 +22,7 @@
 
 - great to use with client-side frameworks as it's all JS.
 
-## The basic sytax of a web server:
+## The basic syntax  of a web server:
 
 to get a server run in the browser.
 
@@ -41,16 +41,17 @@ app.get("/", function(req, res) {
 });
 ```
 <br>
-### Explaining the code above:
+    
+##### Explaining this code:
 
-- basically we bring in Express in the top using using the CommonJs module syntax(require).
+- basically we bring in Express in the top using the CommonJs module syntax(require).
 
 #### Note: with node you can't use the import Es6 modules with default, just yet.
 if You do wanna use it you have to use something like (babel) to compile it, otherwise You're gonna use this syntax.
 
 - then to initialize Express You just set a variable to the express method, it's usually called `app` by convention, but you can name it anything.
 
-- then You create Your endPoints, in this case we're accepting a GET request to the index route (which is the slash symbol) and then, We just have a Callback function that takes in a request and a response.
+- then You create Your endPoints, in this case we're accepting a GET request to the index route (which is the slash symbol) and then, We just have a Callback function that takes in a request and a response as parameters.
 
 - then we do whatever we want, in this case we're just responding with the text of hello world! with send method.
 ( the resonse object have a method called send that will just send something to the browser(some Text or whatever).)
@@ -69,7 +70,7 @@ and of course we can create routes to whatever you want, if you wanted to do `/u
 <br> 
 
 
-  - the request and response objexts are very important, The request obj represents the HTTP request properties for things like URL parameters, Query striings, any data that sent within the body, the HTTP headers, all that stuff is included in the request.
+  - the request and response objects are very important, The request obj represents the `HTTP request properties` for things like URL parameters, Query strings, any data that sent within the body, the HTTP headers, all that stuff is included in the request.
   You can also create middleware , where you can change, add things to this object
 <br>
   
@@ -81,7 +82,8 @@ and of course we can create routes to whatever you want, if you wanted to do `/u
 
 
 <br>
-##Express middleware :
+ 
+ ##  Express middleware :
 
 MiddleWare functions are functions that have access to the request and response object. Express has built in middleware but middleware comes from 3rd parties you install  , we can also write our own middleware functions.
 
@@ -203,21 +205,22 @@ so we're gonna install nodemon, it's a package which will constantly watch our s
   "dev": "nodemon index"
 }
 ```
--the difference is node index, You'll have to keep resetting the server everytime you make a change. and nodemon will constantly watch it.
+-the difference is when we run `node index` we'll have to keep resetting the server everytime you make a change. but running `npm run dev` nodemon will constantly watch if we made a change.
 
-`npm run dev` we can see now that it's running on 5000. however nodemon is running.
+if we run `npm run dev` we can see now that it's running on 5000. however nodemon is running.
 
 -notice that that we typed in `npm run dev` if instead we typed in `npm dev` it won't run. because when we create a script unless it's start or test then we have to type in `run`.
 
 
 <br>
+
 ### sending file through the response object:
 
 -we're gonna bring in the path node module. 
 and we're gonna use sendFile on the response object instead of send. and we're gonna load an HTML file.
 
 ```javascript
-const path = require('require') 
+const path = require('path') 
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html')) // to joins all the the path segments together and get this file
@@ -236,7 +239,7 @@ the res would go this path and get this file. so if we go to our server we would
 
   ```javascript
 
-  const path = require('require') 
+  const path = require('path') 
   app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'about.html')) 
 
@@ -245,7 +248,7 @@ the res would go this path and get this file. so if we go to our server we would
 
 <br> 
 
-### 18:40 set a static folder:
+### setting a static folder:
 
 - if we want just a static server that servers just HTML, CSS images. Express comes with functionality to make a certain folder a static folder.
 
@@ -254,7 +257,7 @@ the res would go this path and get this file. so if we go to our server we would
   app.use(express.static(path.join(__dirname,'public')))
 
 ```
--use is a method that we use when we wanna include middleware. and we pass to it
+- `use` is a method that we use when we wanna include middleware. and we pass to it
 `express.static()` and we point to the folder that we wanna set as our static folderr. we're gonna set our public folder.
 now we could put any file in our public folder and it'll work. e.g. we're gonna put an about HTML file in that public folder. 
 and if we went to our localhost server and typed `/about` it'll work! and we could put as many files as we want without having to put a route manually for every sinle page.
@@ -273,7 +276,7 @@ OR you wanna render templates where you can insert dynamic data so that you can 
 
 
 
-### 21:45 creating a simple REST API: 
+### creating a simple REST API: 
 
 - we're gonna create just a simple REST API we're not gonna be dealing with a database, we're just gonna have a hard-coded array, but it's the same principle when we're dealing with routes and response and all of that stuff.
 
@@ -321,7 +324,7 @@ we're gonna hardcode an array of members and we wanna return it as json when we 
 `http://localhost:5000/api/members`
 
 
- ### 24:00 MiddleWare:
+ ### MiddleWare:
 
 #### refer to the logger file in middleware folder.
 
@@ -329,9 +332,6 @@ we're gonna hardcode an array of members and we wanna return it as json when we 
 
 const logger = (req, res, next) => {
     console.log('hello');
-    //getting the URL and date
-    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
-    next()
 }
 //init middleware
 app.use(logger)
@@ -346,11 +346,24 @@ app.use(logger)
  - and for now we're just gonna console log hello.
  - we type next at the end
 
- - in order to initialize we do `app.use` and pass in `logger` 
+ - in order to initialize we do `app.use` and pass in `logger`
+  
 
  - now if we saved and reload postman (make a request) we would get hello in the console.
  so everytime we make a request this middleware is gonna run, and we could do anything in its body, we could execute any code we want, we have access to the request and response.
  <br>
+
+ ```javascript
+
+const logger = (req, res, next) => {
+    //getting the URL and date
+    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    next()
+}
+//init middleware
+app.use(logger)
+
+```
 
  - so what we're gonna do is we're gonna log the URL that's hit and the date (we have access to part of the URL with request object) 
 `req.protocol` is gonna give us (HTTP), then we're gonna do `://`  and then we wanna get the Host which is also available in the request object `req.get('host')` then we want what's called the original URL which is the page `req.originalUrl`.
