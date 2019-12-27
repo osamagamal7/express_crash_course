@@ -1,5 +1,5 @@
 const express = require('express');
-const members = require('../../Members') // .. outside api folder .. outside routes folder 
+let members = require('../../Members') // .. outside api folder .. outside routes folder 
 const uuid = require('uuid')
 
 
@@ -71,8 +71,8 @@ router.delete('/:id', (req, res) => {
 
     const found = members.some((member) => member.id === parseInt(req.params.id))
     if (found) {
-
-        res.json({ msg: 'Member deleted successfully', members: members.filter(member => member.id !== parseInt(req.params.id)) })
+        members = members.filter(member => member.id !== parseInt(req.params.id));
+        res.json({ msg: 'Member deleted successfully', members });
     } else {
         res.status(400).json({ msg: `no member with the id of ${req.params.id}` })
     }
