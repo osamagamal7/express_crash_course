@@ -126,7 +126,7 @@ Postman: It's an HTTP client, it makes requests to our server. It can make (GET,
 const express = require('express')
 // initialize a variable called app with express
 
-const app = require();
+const app = express();
 // we need to listen on a port
 
 const PORT = process.env.PORT || 5000;
